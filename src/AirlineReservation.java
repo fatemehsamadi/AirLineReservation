@@ -1,8 +1,8 @@
-package com.company;
-
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+
+
 
 class Flight {
     private String flightNumber;
@@ -476,8 +476,29 @@ public class AirlineReservation {
     private static ArrayList<Flight> flights = new ArrayList<>();
     private static ArrayList<User> users = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private static boolean LoggedIn = false;
+    private  boolean LoggedIn = false;
 
+
+
+    static User login() {
+        System.out.println("Enter your username :");
+        String inputUsername = scanner.next();
+        System.out.println("Enter your password :");
+        String inputPassword = scanner.next();
+        for (User user : users) {
+            if (user.getUsername().equals(inputUsername) && user.getPassword().equals(inputPassword)) {
+                return user;
+            }
+        }
+        if(inputPassword.equals("admin") && inputUsername.equals("admin")){
+            User admin = new User("admin","admin",true,flights);
+            users.add(admin);
+            return admin;
+        }
+        System.out.println("Invalid credentials. Please try again.");
+        return null;
+
+    }
     public static void main(String[] args) {
         User currentUser = null;
         while(true)
@@ -512,25 +533,6 @@ public class AirlineReservation {
 
     }
 
-    private static User login() {
-        System.out.println("Enter your username :");
-        String inputUsername = scanner.next();
-        System.out.println("Enter your password :");
-        String inputPassword = scanner.next();
-        for (User user : users) {
-            if (user.getUsername().equals(inputUsername) && user.getPassword().equals(inputPassword)) {
-                return user;
-            }
-        }
-        if(inputPassword.equals("admin") && inputUsername.equals("admin")){
-            User admin = new User("admin","admin",true,flights);
-            users.add(admin);
-            return admin;
-        }
-        System.out.println("Invalid credentials. Please try again.");
-        return null;
-
-    }
     private static User SignUp() {
         System.out.println("Enter your username:");
         String inputUsername = scanner.next();
@@ -542,4 +544,6 @@ public class AirlineReservation {
         return null;
     }
 
+
 }
+
